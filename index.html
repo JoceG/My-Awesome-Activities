@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Activities</title>
+    <style>
+        h1 {
+            color: lightblue;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(18, 237, 73, 0.2);
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            color: black
+        }
+
+        li {
+            font-size: 20px;
+            color: black
+        }
+
+        label {
+            font-size: 20px;
+            color: black
+        }
+
+
+        /* CSS styles for the submit button */
+        button[type="submit"] {
+            background-color: blue;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
+        }
+
+        .container{
+            display:flex;
+        }
+
+        #col-1{ 
+            flex: 1;
+            padding-left: 50px;
+            background-color: rgba(244, 220, 199, 0.285);
+            max-height: 700px;
+        }
+
+        #col-2{ 
+            flex: 1;
+            padding-left: 50px;
+            background-color: rgba(248, 237, 149, 0.288);
+            max-height: 700px;
+        }
+
+        /* CSS styles for the flashed message container */
+        .flash-messages {
+            position: fixed;
+            right: 10px;
+            z-index: 9999; /* ensure the message appears above other elements */
+            width: 600px;
+            left: 55%
+        }
+
+        CSS styles for the right column content wrapping div
+        .right-column-content {
+            position: relative;
+        }
+
+        /* CSS styles for the flashed message itself */
+        .flash-message {
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background-color: #a2d8af; /* Green color for success messages */
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+
+
+        #review_text {
+            resize: both;
+            max-height: 390px;
+            max-width: 660px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <section class="container">
+        <div id="col-1">
+            <h1>Welcome to My Awesome Activities!</h1>
+            <p>Embrace the Adventure: 10 Activities to Experience Today!</p>
+            <ol>
+                {% for activity in activities %}
+                <li>
+                    {{ activity }}
+                </li><br>
+                {% endfor %}
+            </ol>
+            <form method="get">
+                <button type="submit" name="get_new_activities">Get New Activities</button>
+                <br><br><br><br><br>
+            </form>
+        </div>
+
+        <div id="col-2">
+            <section class="flash-messages">         
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <section class="flash-messages">
+                    {% for message in messages %}
+                      <div class="flash-message alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                  </section>
+                {% endif %}
+              {% endwith %}
+            </section>
+
+
+            <form method="post">
+                <div>
+                    <br><br><br><br><br>
+                    <p>Try any activity from the list and tell us how it went! We'd love to hear your thoughts.</p>
+                    <br>
+
+                    <label for="activity_number">Activity Number:</label>
+                    <input type="number" id="activity_number" name="activity_number" min="1" max="10" required>
+                    <span>(Enter a number from 1 to 10 for the activity you want to review)</span>
+                </div>
+    
+                <div>
+                    <br>
+                    <label for="review_text">Your Review:</label>
+                    <br>
+                    <textarea id="review_text" name="review_text" rows="15" cols="80" required></textarea>
+                </div>
+                <div>
+                    <br>
+                    <button type="submit" name="submit_review">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
